@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
-    <script src="./script/script.js"></script>
+    <script defer src="./script/script.js"></script>
     <title>Previsão Do Tempo</title>
 </head>
 <body>
@@ -14,35 +14,57 @@
             <header>
                 <img src="./images/logo.png" alt="logo">
             </header>
-            <div>
-                <label for="money">USD</label>
-                <img src="./images/Vector.png" alt="seta para baixo">
-            </div>
-    
-            <div class="flex h1">
-                <img src="./images/dollar-sign.png" alt="sifrao">
-                <h1>14,00</h1>
+            <div id="tipoMoeda1">
+                <label id="label1" for="money">Dólar</label>
+                <img  class="seta" src="./images/Vector.png" alt="seta para baixo">
             </div>
     
             <div class="flex">
+                <img src="./images/dollar-sign.png" alt="sifrao">
+                <input class="price" placeholder="00,00"></input>
+            </div>
+    
+            <div class="flex test">
                 <div class="flex-collum">
-                    <p>USD</p>
-                    <p>R$ 14,00</p>
+                    <p id="moeda1">Dólar</p>
+                    <p>R$ 00,00</p>
                 </div>
     
                 <div>=</div>
     
                 <div>
                     <div class="flex">
-                        <p>BRL</p>
-                        <img src="./images/Vector.png" alt="seta para baixo">
+                        <p id="moeda2">Real</p>
+                        <img id="tipoMoeda2" class="seta" src="./images/Vector.png" alt="seta para baixo">
                     </div>
-                    <p>R$ 70,00</p>
+                    <p>R$ 00,00</p>
                 </div>
                 
             </div>
-            <button>CONFIRMAR</button>
-                <div id="modal"></div>
+            <button id="confirmar">CONFIRMAR</button>
+            
+                <div id="modal" class="modal">
+                    <div class="container-modal">
+                        <img id="closeModal" src="./images/Arrow 1.png" alt="seta pro lado">
+                    </div>
+                    <div class="center">
+
+                        <ul id="lista">
+                            <li><button class="btn-modal"> <img src="./images/dollar-sign2.png" alt="">Dólar</button></li>
+                            <li><button class="btn-modal"><img src="./images/euro-currency-symbol.png" alt=""> Euro</button></li>
+                            <li><button class="btn-modal"><img src="./images/money.png" alt="">Real</button></li>
+                        </ul>
+
+                        <ul id="lista2" class="hidden">
+                            <li><button class="btn-modal"> <img src="./images/dollar-sign2.png" alt="">Dólar</button></li>
+                            <li><button class="btn-modal"><img src="./images/euro-currency-symbol.png" alt=""> Euro</button></li>
+                            <li><button class="btn-modal"><img src="./images/money.png" alt="">Real</button></li>
+                        </ul>
+                        
+                        
+                        
+                    </div>
+                </div>
         </main>
     </div>
 </body>
