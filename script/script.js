@@ -12,37 +12,62 @@ const label1 = document.getElementById("label1")
 const ul1 = document.getElementById("lista")
 const ul2 = document.getElementById("lista2")
 
+const preco1 = document.getElementById("preco1")
+const preco2 = document.getElementById("preco2")
+
+const inputPreco = document.getElementById("inputPreco")
+
+moeda1.setAttribute("tipo","USD")
+moeda2.setAttribute("tipo","BRL")
+
+
 
 function conferirMoeda (){
-    if(moeda1.textContent == "Dólar"){
-        moeda1.setAttribute("tipo", "USD")
-    } else if(moeda1.textContent == "Real"){
-        moeda1.setAttribute("tipo", "BRL")
-    }else {
-        moeda1.setAttribute("tipo","EUR")
+    if(label1.textContent == "Dolar"){
+        label1.setAttribute("tipo", "USD")
+
+    } else if(label1.textContent == "Real"){
+        label1.setAttribute("tipo", "BRL")
+    }else if(label1.textContent == "Euro"){
+        label1.setAttribute("tipo","EUR")
     }
 
-    if(moeda2.textContent == "Dólar"){
+    if(moeda2.textContent == "Dolar"){
         moeda2.setAttribute("tipo", "USD")
     } else if(moeda2.textContent == "Real"){
         moeda2.setAttribute("tipo", "BRL")
-    }else {
+    }else if(moeda2.textContent == "Euro") {
         moeda2.setAttribute("tipo","EUR")
     }
-
 }
 
 
 const abrirModal1 = ()=>{
     modal.classList.toggle("visible")
     const lista = document.querySelectorAll("#lista li");
+
     
-        for (var i = 0; i < lista.length; i++) {
+        for (let i = 0; i < lista.length; i++) {
             lista[i].addEventListener("click", function (e) {
-               let valAux1 = e.target.textContent
-               moeda1.textContent = valAux1
-               label1.textContent = valAux1
-               console.log(valAux1)
+
+               moeda1.innerText = e.target.textContent
+               label1.innerText = e.target.textContent
+
+               if(e.target.textContent == " Dolar"){
+                e.target.setAttribute("tipo", "USD")
+                moeda1.setAttribute("tipo","USD")
+            } 
+            else if(e.target.textContent == "Real"){
+                e.target.setAttribute("tipo", "BRL")
+                moeda1.setAttribute("tipo", "BRL")
+            }
+            else if(e.target.textContent == " Euro"){
+               e.target.setAttribute("tipo","EUR")
+               moeda1.setAttribute("tipo","EUR")
+            }
+               
+               console.log(e.target)
+               
         })
     } 
     ul1.classList.remove("hidden")
@@ -52,12 +77,24 @@ const abrirModal1 = ()=>{
 const abrirModal2 = ()=>{
     modal.classList.toggle("visible")
     const lista2 = document.querySelectorAll("#lista2 li");
-    for (var i = 0; i < lista2.length; i++) {
+    for (let i = 0; i < lista2.length; i++) {
         lista2[i].addEventListener("click", function (e) {
-            let valAux2 = e.target.textContent
-           moeda2.textContent = valAux2
+              
+           moeda2.innerText = e.target.textContent
 
-           console.log(valAux2)
+           if(e.target.textContent == " Dolar"){
+            e.target.setAttribute("tipo","USD")
+            moeda2.setAttribute("tipo","USD")
+        } else if(e.target.textContent == "Real"){
+            e.target.setAttribute("tipo","BRL")
+            moeda2.setAttribute("tipo","BRL")
+        }else if(e.target.textContent == "Euro"){
+            e.target.setAttribute("tipo","EUR")
+            moeda2.setAttribute("tipo","EUR")
+        }
+           console.log(e.target)
+
+           
     })
     ul2.classList.remove("hidden")
     ul1.classList.add("hidden")
@@ -75,12 +112,21 @@ tipoMoeda2.addEventListener("click",abrirModal2)
 closeImg.addEventListener("click", fecharModal)
 
 
-confirmar.addEventListener("click",async()=>{
+confirmar.addEventListener("click",async()=>{  
     conferirMoeda()
     const data = await fetch(`https://economia.awesomeapi.com.br/last/${moeda1.getAttribute("tipo")}-${moeda2.getAttribute("tipo")}`)
      
     const result = await data.json()
-    console.log(result)
+    let m1 =  moeda1.getAttribute("tipo")
+    let m2 =  moeda2.getAttribute("tipo")
+    let conc = `${m1}${m2}`
+    let juncaoSiglaMoeda = Number(result[conc].bid)
+    let valor =  (inputPreco.value * juncaoSiglaMoeda).toFixed(2)
+
+    preco1.innerText = Number(inputPreco.value).toFixed(2)
+    preco2.innerText = valor
+    inputPreco.value = Number(inputPreco.value).toFixed(2)
+    console.log(valor)
 
 })
 
